@@ -1,0 +1,97 @@
+version: 2.1
+jobs:
+  setup:
+    docker:
+      - image: circleci/node:10.12
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Build Project
+          command: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  lint:
+    docker:
+      - image: circleci/node:10.12
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Linter
+          command: |
+            npm run test:lint
+  unit:
+    docker:
+      - image: circleci/node:10.12
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Unit Tests
+          command: |
+            npm run test:unit
+  e2e:
+    docker:
+      - image: circleci/node:10.12
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Functional Tests
+          command: |
+            npm run test:sauce
+  performance_main:
+    docker:
+      - image: saucelabs/speedo:next
+    steps:
+      - run:
+          name: Test Main Page
+          command: |
+            npm i http-server
+            npx http-server -p 8282 ./build 2>&1 >> static-server.log &
+            speedo run http://localhost:8282 \
+              -n "circleci performance test: main page" \
+              -b $CIRCLE_WORKFLOW_ID \
+              -i perf-tunnel-main
+  performance_detail:
+    docker:
+      - image: saucelabs/speedo:next
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Test Detail Page
+          command: |
+            npm i http-server
+            mkdir ./build/brrto
+            cp ./build/index.html ./build/brrto/index.html
+            npx http-server -p 8282 ./build 2>&1 >> static-server.log &
+            speedo run http://localhost:8282/brrto \
+              -n "circleci performance test: test details" \
+              -b $CIRCLE_WORKFLOW_ID \
+              -i perf-tunnel-details
+workflows:
+  version: 2
+  default_workflow:
+    jobs:
+      - setup
+      - lint:
+          requires:
+            - setup
+      - unit:
+          requires:
+            - lint
+      - e2e:
+          requires:
+            - unit
+      - performance_main:
+          requires:
+            - e2e
+      - performance_detail:
+          requires:
+            - e2e

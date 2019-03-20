@@ -1,0 +1,8 @@
+Starting up http-server, serving ./build
+Available on:
+  http://127.0.0.1:8282
+  http://10.242.71.30:8282
+  http://10.254.248.31:8282
+  http://10.242.112.122:8282
+Hit CTRL-C to stop the server
+[Wed Jul 10 2019 15:32:11 GMT+0200 (Central European Summer Time)] "GET /" "curl/7.54.0"

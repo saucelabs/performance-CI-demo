@@ -20,7 +20,7 @@ const styles = theme => ({
     paddingTop: '56.25%'
   },
   fix: {
-    borderRadius: '7px' 
+    borderRadius: '7px'
   }
 });
 
