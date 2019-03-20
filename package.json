@@ -11,10 +11,13 @@
     "build": "webpack",
     "start": "npm run build && node server.js",
     "develop": "npm run build && nodemon server.js",
-    "lint": "eslint src"
+    "test:lint": "eslint src",
+    "test:unit": "jest ./test/unit/unit.test.js",
+    "test:functional": "wdio"
   },
   "dependencies": {
     "@material-ui/core": "1.2.0",
+    "@wdio/cli": "^5.7.5",
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
     "babel-preset-react": "6.24.1",
@@ -28,10 +31,17 @@
     "webpack": "4.11.1"
   },
   "devDependencies": {
+    "@wdio/local-runner": "^5.7.5",
+    "@wdio/mocha-framework": "^5.7.3",
+    "@wdio/sauce-service": "^5.7.3",
+    "@wdio/spec-reporter": "^5.7.2",
+    "@wdio/sync": "^5.7.3",
     "copy-webpack-plugin": "4.5.1",
     "eslint": "^5.15.3",
     "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-wdio": "^5.7.0",
     "file-loader": "1.1.11",
+    "jest": "^24.5.0",
     "nodemon": "1.17.5",
     "webpack-cli": "3.0.2"
   },
