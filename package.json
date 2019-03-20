@@ -10,7 +10,8 @@
   "scripts": {
     "build": "webpack",
     "start": "npm run build && node server.js",
-    "develop": "npm run build && nodemon server.js"
+    "develop": "npm run build && nodemon server.js",
+    "lint": "eslint src"
   },
   "dependencies": {
     "@material-ui/core": "1.2.0",
@@ -28,6 +29,8 @@
   },
   "devDependencies": {
     "copy-webpack-plugin": "4.5.1",
+    "eslint": "^5.15.3",
+    "eslint-plugin-react": "^7.12.4",
     "file-loader": "1.1.11",
     "nodemon": "1.17.5",
     "webpack-cli": "3.0.2"

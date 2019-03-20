@@ -1,5 +1,3 @@
-const base = '/imgs';
-const width = 1500;
 const dir = 'small';
 
 // All images are public domain.
