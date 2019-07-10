@@ -57,7 +57,7 @@ jobs:
             npm i http-server
             npx http-server -p 8282 ./build 2>&1 >> static-server.log &
             speedo run http://localhost:8282 \
-              -n "circleci performance test: main page" \
+              -n "performance test: main page" \
               -b $CIRCLE_WORKFLOW_ID \
               -i perf-tunnel-main
 workflows:
