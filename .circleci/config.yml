@@ -45,10 +45,12 @@ jobs:
           name: Functional Tests
           command: |
             npm run test:sauce
-  performance_main:
+  performance:
     docker:
       - image: saucelabs/speedo:next
     steps:
+      - attach_workspace:
+          at: .
       - run:
           name: Test Main Page
           command: |
@@ -58,23 +60,6 @@ jobs:
               -n "circleci performance test: main page" \
               -b $CIRCLE_WORKFLOW_ID \
               -i perf-tunnel-main
-  performance_detail:
-    docker:
-      - image: saucelabs/speedo:next
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Test Detail Page
-          command: |
-            npm i http-server
-            mkdir ./build/brrto
-            cp ./build/index.html ./build/brrto/index.html
-            npx http-server -p 8282 ./build 2>&1 >> static-server.log &
-            speedo run http://localhost:8282/brrto \
-              -n "circleci performance test: test details" \
-              -b $CIRCLE_WORKFLOW_ID \
-              -i perf-tunnel-details
 workflows:
   version: 2
   default_workflow:
@@ -89,9 +74,6 @@ workflows:
       - e2e:
           requires:
             - unit
-      - performance_main:
-          requires:
-            - e2e
-      - performance_detail:
+      - performance:
           requires:
             - e2e
