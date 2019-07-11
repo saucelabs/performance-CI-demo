@@ -1,3 +1,5 @@
+const path = require('path')
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -5,9 +7,9 @@ module.exports = {
   mode: "development",
   devtool: false,
   context: __dirname,
-  entry: './src/index.jsx',
+  entry: path.join(__dirname, '..', 'src', 'index.jsx'),
   output: {
-    path: `${__dirname}/build`,
+    path: path.join(__dirname, '..', 'build'),
     filename: `bundle.js`,
   },
   resolve: {
@@ -30,7 +32,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: './imgs/[name].png',
+              name: path.join(__dirname, '..', 'imgs', '[name].png'),
             },
           },
         ],
@@ -39,10 +41,10 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'template.html',
+      template: path.join(__dirname, '..', 'template.html'),
     }),
     new CopyWebpackPlugin([
-      { from: './libs/*', },
+      { from: path.join(__dirname, '..', 'libs', '*') },
     ]),
   ],
 };

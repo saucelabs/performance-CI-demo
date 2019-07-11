@@ -8,15 +8,15 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config ./.config/webpack.config.js",
     "start": "npm run build && node server.js",
     "test:lint": "eslint src",
     "test:unit": "jest ./test/unit/unit.test.js",
-    "test:sauce": "wdio wdio.sauce.conf.js",
-    "test:local": "wdio wdio.local.conf.js",
+    "test:sauce": "wdio ./.config/wdio.sauce.conf.js",
+    "test:local": "wdio ./.config/wdio.local.conf.js",
     "watch": "run-p watch:*",
     "watch:server": "nodemon server.js",
-    "watch:assets": "webpack --watch --info-verbosity verbose"
+    "watch:assets": "webpack --config ./.config/webpack.config.js --watch --info-verbosity verbose"
   },
   "dependencies": {
     "@material-ui/core": "^4.1.3",
