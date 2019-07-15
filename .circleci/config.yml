@@ -45,7 +45,7 @@ jobs:
           name: Functional Tests
           command: |
             npm run test:sauce
-  performance:
+  performance_run:
     docker:
       - image: saucelabs/speedo:next
     steps:
@@ -60,6 +60,16 @@ jobs:
               -n "performance test: main page" \
               -b $CIRCLE_WORKFLOW_ID \
               -i perf-tunnel-main
+  performance_analyze:
+    docker:
+      - image: saucelabs/speedo:next
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Analyze Performance of previous Sauce jobs
+          command: |
+            speedo analyze "My CircleCI Performance Test"
 workflows:
   version: 2
   default_workflow:
@@ -74,6 +84,9 @@ workflows:
       - e2e:
           requires:
             - unit
-      - performance:
+      - performance_run:
+          requires:
+            - e2e
+      - performance_analyze:
           requires:
             - e2e
