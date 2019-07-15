@@ -69,7 +69,7 @@ jobs:
       - run:
           name: Analyze Performance of previous Sauce jobs
           command: |
-            speedo analyze "My CircleCI Performance Test"
+            speedo analyze "My CircleCI Performance Test" -m speedIndex -m score -m load
 workflows:
   version: 2
   default_workflow:
