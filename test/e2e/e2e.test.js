@@ -11,6 +11,23 @@ describe('my fish app', () => {
     assert.equal(headline.getText(), 'Tony\'s Favorite Foods');
   })
 
+  /**
+   * only run performance tests when running on SauceLabs
+   */
+  if (browser.options.capabilities['sauce:options'] && browser.isChrome) {
+    it('should have loaded the page within expected baseline', () => {
+      const jobName = browser.options.capabilities['sauce:options'].name
+      const pageloadPerformance = browser.assertPerformance(
+        jobName,
+        ['speedIndex', 'score', 'load']
+      )
+      assert.equal(
+        pageloadPerformance.result,
+        'pass',
+        `performance on one of the metrics is outside the boundaries: ${JSON.stringify(pageloadPerformance.details)}`)
+    })
+  }
+
   it('allows to open the item details page', () => {
     $('a[href="/brrto"]').click()
 

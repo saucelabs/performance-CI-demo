@@ -28,7 +28,11 @@ exports.config = Object.assign(config, {
     platformName: 'Windows 10',
     browserVersion: 'latest',
     'sauce:options': {
-      build: process.env.CIRCLE_WORKFLOW_ID
+      name: 'My CircleCI Performance Test',
+      build: process.env.CIRCLE_WORKFLOW_ID,
+      extendedDebugging: true,
+      capturePerformance: true,
+      crmuxdriverVersion: 'beta'
     }
   }, {
     browserName: 'firefox',
