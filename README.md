@@ -219,6 +219,7 @@ This approach is surely the more advanced way of testing performance but it also
 
 - allows to test performance not only for page loads but also for page transitions that are triggered by a click
 - ability to have hard limits on certain metrics (e.g. make hard assertion that a metric is not over X seconds)
+- incorperate performance tests in test suites written in any arbitraty automation framework / Selenium binding
 
 ## Run Tests for the first time
 
