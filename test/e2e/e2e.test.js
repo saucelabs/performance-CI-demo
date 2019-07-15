@@ -9,9 +9,8 @@ const assert = require('assert')
  * we choose the right job name and also not modify it when changed
  * using WebdriverIO Sauce service.
  */
-const jobName = browser.options.capabilities['sauce:options']
-  ? browser.options.capabilities['sauce:options'].name
-  : 'my fish app'
+const sauceOpts = browser.options.capabilities['sauce:options']
+const jobName = (sauceOpts && sauceOpts.name) || 'my fish app'
 
 describe(jobName, () => {
   it('it should open the main page', () => {
