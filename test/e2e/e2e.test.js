@@ -2,8 +2,9 @@
  * super simple functional test
  */
 const assert = require('assert')
+const jobName = 'my fish app'
 
-describe('my fish app', () => {
+describe(jobName, () => {
   it('it should open the main page', () => {
     browser.url('/')
 
@@ -16,7 +17,6 @@ describe('my fish app', () => {
    */
   if (browser.options.capabilities['sauce:options'] && browser.isChrome) {
     it('should have loaded the page within expected baseline', () => {
-      const jobName = browser.options.capabilities['sauce:options'].name
       const pageloadPerformance = browser.assertPerformance(
         jobName,
         ['speedIndex', 'score', 'load']

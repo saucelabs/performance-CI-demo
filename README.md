@@ -192,7 +192,6 @@ Last but not least Sauce performance allows you to create your own custom perfor
  */
 if (browser.options.capabilities['sauce:options'] && browser.isChrome) {
   it('should have loaded the page within expected baseline', () => {
-    const jobName = browser.options.capabilities['sauce:options'].name
     const pageloadPerformance = browser.assertPerformance(
       jobName,
       ['speedIndex', 'score', 'load']
@@ -209,7 +208,7 @@ WebdriverIO has an [own implementation](https://webdriver.io/docs/api/saucelabs.
 
 ```py
 performance = driver.execute_script("sauce:performance", {
-                                    "name": "some job name",
+                                    "name": jobName,
                                     "metrics": ["speedIndex", "score", "load"]})
 ```
 
