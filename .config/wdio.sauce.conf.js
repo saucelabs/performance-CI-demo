@@ -28,6 +28,7 @@ exports.config = Object.assign(config, {
     platformName: 'Windows 10',
     browserVersion: 'latest',
     'sauce:options': {
+      name: 'My CircleCI Performance Test',
       build: process.env.CIRCLE_WORKFLOW_ID,
       extendedDebugging: true,
       capturePerformance: true,

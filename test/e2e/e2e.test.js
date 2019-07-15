@@ -2,7 +2,16 @@
  * super simple functional test
  */
 const assert = require('assert')
-const jobName = 'my fish app'
+
+/**
+ * A job name has to be set in the capabilities in order for Sauce
+ * to be able to collect the data properly. With this we make sure that
+ * we choose the right job name and also not modify it when changed
+ * using WebdriverIO Sauce service.
+ */
+const jobName = browser.options.capabilities['sauce:options']
+  ? browser.options.capabilities['sauce:options'].name
+  : 'my fish app'
 
 describe(jobName, () => {
   it('it should open the main page', () => {
